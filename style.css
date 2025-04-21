@@ -1,0 +1,275 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    background: antiquewhite;
+    overflow-x: hidden;
+    transition: background 0.5s;
+    margin: 0;
+    border: none;
+    outline: none;
+    left: 0;
+    top: 0;
+}
+
+canvas#game {
+    background: url(images/IMG_0684.PNG) 100vw 100vh;
+    cursor: grab;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 4px;
+    position: relative;
+    outline: 4px black dotted;
+}
+
+html>#index {
+    background: brown;
+}
+
+.extra {
+    margin-bottom: 10vh;
+}
+
+html>body>.in {
+    display: inline;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.basic {
+    margin-top: 16px;
+    margin-right: auto;
+    margin-left: auto;
+    width: max-content;
+    max-width: 100%;
+    text-align: center;
+    font-size: clamp(2.25em, 5vw, 6.75em);
+    box-shadow: rgba(0, 0, 0, 0.3) 0 8px 16px;
+}
+
+.first::before {
+    display: block;
+    font-size: 0.5em;
+    position: absolute;
+    content: "Click me!";
+    width: min-content;
+    height: 100%;
+    left: 7.5%;
+    bottom: 0;
+    transition: all 0.5s;
+    z-index: -1;
+    animation: flicker 2.5s alternate-reverse infinite;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.first:hover::before {
+    left: 102.5%;
+}
+
+body.shaded.over {
+    overflow-y: hidden;
+}
+
+#parentheses {
+    font-weight: 400;
+    animation: flicker 2.5s alternate-reverse infinite;
+}
+
+@keyframes flicker {
+    from {
+        color: rgba(0, 0, 0, 0);
+    }
+    to {
+        color: rgba(0, 0, 0, 0.4);
+    }
+}
+
+html>body.shaded#index {
+    background: antiquewhite;
+}
+
+label.text {
+    margin-right: auto;
+    margin-left: auto;
+    width: max-content;
+    max-width: 100%;
+    text-align: center;
+    font-size: clamp(2.25em, 5vw, 6.75em);
+    position: relative;
+    display: block;
+    font-weight: 600;
+    font-style: italic;
+    user-select: none;
+    animation: expell 1s infinite alternate-reverse;
+    transition: box-shadow 0.2s, font-size 0.2s;
+    margin-top: 0;
+    background: inherit;
+}
+
+label:hover.text {
+    animation: none;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 8px 16px;
+    font-size: calc(clamp(2.25em, 5vw, 6.75em) * 1.1);
+}
+
+@keyframes expell {
+    from {
+        box-shadow: rgba(0, 0, 0, 0) 0 0 0;
+    }
+    to {
+        box-shadow: rgba(0, 0, 0, 0.3) 0 8px 16px;
+    }
+}
+
+label::after {
+    content: "";
+    height: 10%;
+    width: 0;
+    position: absolute;
+    left: 4px;
+    bottom: 7.5%;
+    background: black;
+    border-radius: 4px;
+    transition: width 0.5s;
+}
+
+label:hover:after {
+    width: calc(100% - 8px);
+}
+
+a.label:hover {
+    text-decoration: none;
+}
+
+input {
+    display: none;
+}
+
+p {
+    font-weight: 525;
+    font-size: 1.75em;
+    text-align: center;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 64px;
+}
+
+p.special {
+    transition: transform 0.25s ease-out;
+    transform: translateX(-100%) scaleY(0);
+}
+
+p:has(input:checked) {
+    transform: translateX(0%) scaleY(1);
+}
+
+header {
+	outline: none;
+	margin: 0;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 75px;
+    background: green;
+    left: 0;
+    top: 0;
+    font-size: 1.5em;
+    transition: box-shadow 0.15s;
+}
+
+header.shaded {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+header>h2 {
+    margin-left: 8px;
+    margin-top: 20px;
+}
+
+#prefix {
+    margin-top: 96px;
+    margin-left: 8px;
+    margin-bottom: -296px;
+}
+
+#top {
+    z-index: -1;
+    position: absolute;
+    left: -7.5px;
+    top: -20px;
+	outline: none;
+	margin: 0;
+}
+
+body>#MC {
+    font-family: 'Times New Roman', Times, serif;
+    background: url(images/cobble.png) text fixed;
+    color: rgba(0, 0, 0, 0.05);
+    font-size: 16vw;
+    transform: scaleY(1.5) translateY(-0px) /*scaleX(0.9900990099)*/;
+    display: block;
+    position: relative;
+    transition: margin 0.5s ease-out;
+    margin-top: 200vh;
+    text-shadow: 0 0 16px black;
+    user-select: none;
+    margin-bottom: calc(128px);
+    margin-left: 0;
+    text-align: center;
+}
+
+body.shaded>#MC {
+    margin-top: calc(424px - 7.25vw);
+}
+
+body.shaded>#MC::before, body.shaded>#MC::after {
+    margin-left: 0;
+}
+
+#MC::before {
+    margin-left: 100vw;
+    animation: shift auto linear;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#MC::after {
+    margin-left: -100vw;
+    animation: shift2 auto linear;
+    color: rgba(0, 0, 0, 0);
+}
+
+@keyframes shift {
+    from {
+        transform: scaleY(1.015) translateY(1.5vw) scaleX(1.004);
+    }
+    to {
+        transform: scaleY(1.015) translateY(-1.5vw) scaleX(1.004);
+    }
+}
+
+@keyframes shift2 {
+    from {
+        transform: scaleY(1.025) translateY(2.5vw) scaleX(1.01);
+    }
+    to {
+        transform: scaleY(1.025) translateY(-2.5vw) scaleX(1.01);
+    }
+}
+
+#MC::before, #MC::after {
+    text-align: inherit;
+    transition: inherit;
+    transition-duration: 1s;
+    animation-duration: 1ms;
+    height: 99px;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+    content: "MINECRAFT";
+    width: 100%;
+    height: fit-content;
+    background: url(images/cobble.png) text -100px -100px fixed;
+    left: 0;
+    top: 0;
+    position: absolute;
+    animation-timeline: view(block -50% 5%);
+}
