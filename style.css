@@ -1,7 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     position: relative;
-    //background: gray;
+    background: gray;
     overflow-x: hidden;
     transition: background 0.5s;
     margin: 0;
@@ -9,7 +9,6 @@ body {
     outline: none;
     left: 0;
     top: 0;
-    background: url(background.PNG) 100vw 100vh;
 }
 
 canvas#game {
