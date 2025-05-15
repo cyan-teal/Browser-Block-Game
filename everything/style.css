@@ -12,7 +12,7 @@ body {
 }
 
 canvas#game {
-    background: url(background.PNG) 100vw 100vh;
+    background: url(images/background.PNG) 100vw 100vh;
     cursor: grab;
     display: block;
     margin-left: auto;
