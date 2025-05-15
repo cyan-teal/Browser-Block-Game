@@ -1,24 +1,23 @@
-//Set up for the game.
+//Set up for the game
 const can = document.querySelector("canvas");
 const ctx = can.getContext("2d");
-//Don't mind the variable names; they make no sense.
-let pX; //Placed-things: X-positions
-let pY; //Placed-thigs: Y-positions
-let pT; //Placed-things: Block-type
-let num; //Tracks the previous array lengths
-let oX; // Player X-position
-//let and; //Unused
-let oY; //Player Y-position
-let oXv; //X-velocity
-let oYv; //Y-velocity
-let lastUpdate = Date.now(); //Last recorded frame
-let D = 100;  //Delta-Time
-let cur; //Current:
-let floor; //Floor, as in the mathematical operator
-let spec;
-let net = 1; //Dictates which blocks the Player places
+
+let pX; 
+let pY; 
+let pT;
+let num;
+let oX; 
+let oY; 
+let oXv;
+let oYv; 
+let lastUpdate = Date.now();
+let D = 100;  
+let cur; 
+let floor; 
+let spec
+let net = 1;
 let g;
-const orange = 250 //Player-range
+const orange = 250 
 
 //Buttons. e.g. W,A,S;D.
 let a = 0;
@@ -141,16 +140,6 @@ function loop() {
     D = now - lastUpdate; //Important: Delta.
     lastUpdate = now;
 
-    //document.querySelector("label").textContent = 1000 / D;
-    /*^^ FPS displayer; found out the game works considerably worse below 45-60fps(notably jumping and collisions).
-    The game is difficult to play while battery-saver's on, as battery saver caps refresh rate of JS canvas to 30fps
-    And the "requestAnimationFrame()"(see below.) in the main game loop's linked to the refresh rate. 
-    
-    I also can't switch to an alternative like "set- Interval/Timeout -()",
-    as them being unsynced with the display rate messes with Delta*/
-
-    //^^ Yapping(Unimportant).
-    
     con(); //- Controls
     col(); //- Collisions
     pos(); //- Positioning
@@ -225,7 +214,7 @@ function place(X, Y, T) {
                                             e.g. if the array "pT" has N things in it, this will loop N times.*/
             if (pX[i] == Math.floor(X) && pY[i] == Math.floor(Y)) {
                 if (pT[i] != 0 && T != 0) {
-                    skip = "stillno" //I actually have no idea how this works; I just made it.
+                    skip = "stillno" 
                 } else {
                     skip = i; //Decides to skip placements if theirs already something there(except air).
             }}
