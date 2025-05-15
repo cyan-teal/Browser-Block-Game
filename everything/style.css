@@ -1,7 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     position: relative;
-    background: whiteSmoke;
+    background: rgb(158, 32, 21);
     overflow-x: hidden;
     transition: background 0.5s;
     margin: 0;
@@ -19,7 +19,7 @@ canvas#game {
     margin-right: auto;
     margin-bottom: 4px;
     position: relative;
-    outline: 4px black dotted;
+    outline: 4px black solid;
 }
 
 html>#index {
