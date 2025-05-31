@@ -1,8 +1,12 @@
-//Set up for the game
+// Set up for the game
+
+// variables for the Canvas API
 const can = document.querySelector("canvas");
 const ctx = can.getContext("2d");
 
-let pX; 
+// declaration of most variable
+// note that most variables are not well named
+let pX;
 let pY; 
 let pT;
 let num;
@@ -14,20 +18,22 @@ let lastUpdate = Date.now();
 let D = 100;  
 let cur; 
 let floor; 
-let spec
+let spec;
 let net = 1;
 let g;
-const orange = 250 
+const orange = 250;
 
-//Buttons. e.g. W,A,S;D.
+// Buttons. e.g. W,A,S;D.
 let a = 0;
 let dk = 0;
 let w = 0;
 let s = 0;
-//Mouse-positions:
+
+// Mouse-positioning:
 let X;
 let Y;
 
+// Sets up necessary event listeners than trigger the main game loop
 redo();
 document.querySelector("h3").addEventListener("click", notify);
 window.addEventListener("resize", redo);
@@ -38,43 +44,43 @@ window.addEventListener("mouseup", repair)
 window.addEventListener("mousemove", shift);
 requestAnimationFrame(loop);
 
-//Tells Player controls.
+// Tells Player controls.
 function notify() {
     alert("WASD / Arrows to move, mouse to build, and Space to cycle blocks.");
 }
 
-//Handle actions following the mouse going down.
+// Handle actions following the mouse going down.
 function fix() {
     s = 1;
     document.querySelector("canvas").style.cursor = "copy";
 }
 
-//Same as previous but for release and not as important.
+// Same as previous but for release and not as important.
 function repair() {
     s = 0;
     document.querySelector("canvas").style.cursor = "grab";
 }
 
-//Update variables for mouse position on movement.
+// updates variables for mouse position upon its movement.
 function shift() {
     X = Math.round((event.clientX - 25) / 50) * 50;
     Y = Math.round((event.clientY - 25) / 50) * 50;
 }
 
-//Says when a key's to be held.
+// says when a key's held.
 function lower() {
     let it = event.key;
     if (it == "a" || it == "ArrowLeft") {
         a = 1;
     } else if (it == "q") {
-        //For testing:
+        // 'Q' is a shortcut for testing:
+        // it shows these 3 arrays which hold all the information for block: x positions, y positions and types.
         alert(pX);
         alert(pY);
         alert(pT);
     } else if (it == "d" || it == "ArrowRight") {
         dk = 1;
     } else if (it == "w" || it == "ArrowUp") {
-        //and = setInterval(w ++, 0);
         w = 20;
     } else if (it == " ") {
         net = (net + 1) % 5;
@@ -88,7 +94,7 @@ function lower() {
     }
 }
 
-//Says when a key's no longer held.
+// says when a key's no longer held.
 function high() {
     let it = event.key;
     if (it == "a" || it == "ArrowLeft") {
@@ -96,7 +102,6 @@ function high() {
     } else if (it == "d" || it == "ArrowRight") {
         dk = 0;
     } else if (it == "w" || it == "ArrowUp") {
-        //clearInterval(and);
         w = 0;
     } else if (it == "s" || it == "ArrowDown") {
         spec = "false";
@@ -104,7 +109,7 @@ function high() {
     }
 }
 
-//Generates a new map.
+// procedurally generate the map
 function creation() {
     let ran = Math.round(((can.height - 25) / 1.5) / 50) * 50;
     for (let v = 0; v * 50 <= can.width; v++) {
@@ -114,7 +119,7 @@ function creation() {
         }
 }}
 
-//Reloads the game when called.
+// reloads/resets the game when called.
 function redo() {
     can.width = Math.floor(visualViewport.width / 50) * 50;
     can.height = Math.floor(visualViewport.height / 50) * 50 - clamp(36, visualViewport.width / 20, 108);
@@ -129,15 +134,15 @@ function redo() {
     creation();
 }
 
-//Mimics the CSS "clamp" feature so the canvas can fit atop other things.
+// mimics the CSS "clamp"feature so the canvas can fit atop other things.
 function clamp(int, down, up) {
     return Math.min(Math.max(int, down), up);
 }
 
-//Main-game-loop; calls all other functions to do stuff.
+// main-game-loop; calls all other functions to act.
 function loop() {
     let now = Date.now();
-    D = now - lastUpdate; //Important: Delta.
+    D = now - lastUpdate; // D = Delta time.
     lastUpdate = now;
 
     con(); //- Controls
@@ -160,7 +165,7 @@ function loop() {
     requestAnimationFrame(loop);
 }
 
-//Interprets controls
+// interprets inputs as controls
 function con() {
     if (a == 1) {
         oXv -= .1 * D;
@@ -176,14 +181,14 @@ function con() {
         //w = 0;
 }}
 
-//Return the current distance between player and cursor.
+// returns distance between player and cursor.
 function dist() {
     return Math.sqrt(Math.pow(X - oX, 2) + Math.pow(Y - oY, 2));//- Complicated maths; I searched up the formula
 }
 
-//Following 2 functions used for positioning blocks based off mouse position(variables X and Y).
+// following 2 functions used for positioning blocks based off mouse position(variables X and Y).
 
-//This 1
+// ^
 function checkB() {
     if (Y >= oY + 65) {
         return 65;
@@ -197,7 +202,7 @@ function checkB() {
         return 0;
 }}
 
-//This 1, 2
+// ^^
 function checkA() {
     if (X >= oX + 17.5) {
         return 42.5;
@@ -207,11 +212,10 @@ function checkA() {
         return 0;
 }}
 
-//Used for adding new blocks.
+// used for adding new blocks.
 function place(X, Y, T) {
     let skip = "no";
-    for (let i = 0; i <= pT.length; i++) { /*The For loops just repeat 1 for each thing in something. This cases thing is: "pT.lenght".
-                                            e.g. if the array "pT" has N things in it, this will loop N times.*/
+    for (let i = 0; i <= pT.length; i++) { 
             if (pX[i] == Math.floor(X) && pY[i] == Math.floor(Y)) {
                 if (pT[i] != 0 && T != 0) {
                     skip = "stillno" 
@@ -228,22 +232,18 @@ function place(X, Y, T) {
             pX[skip] = Math.floor(X);
             pY[skip] = Math.floor(Y);
             pT[skip] = Math.floor(T);
-            /*pX.splice(skip, 1);
-            pY.splice(skip, 1);
-            pT.splice(skip, 1);*/
-            //num = skip;
-            //^^.
     }}
 
 
-//Draws what's happening onto the "canvas" element.
+// Draws what's happening onto the html canvas.
 function make() {
     ctx.clearRect(0, 0, can.width, can.height);
 
     /*ctx.fillStyle = "red";
     ctx.fillRect(oX, oY, 35, 80);*/
-    //^^ Player hit-box(used for testing).
+    // ^^ shows player hit-box, a red rectangle(used for testing).
 
+    // draws player character
     ctx.fillStyle = "#0eaeae";
     ctx.fillRect(oX - 8.75, oY + 10, 52.5, 40);
     ctx.fillStyle = "#a97d64";
@@ -255,27 +255,28 @@ function make() {
     ctx.fillStyle = "#494697";
     ctx.fillRect(oX + 5, oY + 50, 25, 30);
 
+    // draws various blocks onto the map
     for (let i = 0; i < num; i++) {
-        if (pT[i] == 4) { //Grass blocks
+        if (pT[i] == 4) { // grass blocks
             ctx.fillStyle = "rgb(158, 32, 21)";
             ctx.fillRect(pX[i], pY[i], 50, 50);
             ctx.fillStyle = "rgb(31, 184, 58)";
             ctx.fillRect(pX[i], pY[i], 50, 15);
-        } else if (pT[i] == 1) { //Oak planks
+        } else if (pT[i] == 1) { // oak planks
             ctx.fillStyle = "sandybrown";
             ctx.fillRect(pX[i], pY[i], 50, 50);
             ctx.fillStyle = "saddlebrown";
             ctx.fillRect(pX[i], pY[i] + 7.5, 50, 5);
             ctx.fillRect(pX[i], pY[i] + 22.5, 50, 5);
             ctx.fillRect(pX[i], pY[i] + 37.5, 50, 5);
-        } else if (pT[i] == 2) { //Glass blocks
+        } else if (pT[i] == 2) { // glass blocks
             ctx.fillStyle = "rgba(205, 200, 220, 0.55)";
             ctx.fillRect(pX[i], pY[i], 50, 50);
             ctx.fillStyle = "white";
             ctx.fillRect(pX[i], pY[i] + 7.5, 50, 0.75);
             ctx.fillRect(pX[i], pY[i] + 22.5, 50, 0.75);
             ctx.fillRect(pX[i], pY[i] + 37.5, 50, 0.75);
-        } else if (pT[i] == 3) { //Sand
+        } else if (pT[i] == 3) { // sand blocks
             if (fall(pX[i], pY[i]) == "good") {
 
                 pY[i] += 50; 
@@ -288,7 +289,7 @@ function make() {
             ctx.fillRect(pX[i], pY[i] + 35, 50, 15);
         }
         if (pT[i] != 0 && pT[i] != 2) {
-            ctx.strokeStyle = "black"; //Outline
+            ctx.strokeStyle = "black"; // outline for most blocks
             ctx.lineWidth = "1";
             ctx.strokeRect(pX[i], pY[i], 50, 50);
 
@@ -319,7 +320,7 @@ function make() {
     ctx.strokeRect(X, Y, 50, 50);
 }
 
-//Checks then triggers falling-sand.
+// checks then triggers falling-sand.
 function fall(C, U) {
     for (let x = 0; x < num; x ++) {
         if (C == pX[x] && U == pY[x] - 50 && pT[x] != 0) {
@@ -330,7 +331,7 @@ function fall(C, U) {
     return "good";
 }}
 
-//Positioning/Movement for the player.
+// positioning/Movement for the player.
 function pos() {
     if (oYv != 0) {
         oYv *= 0.85;
@@ -353,23 +354,23 @@ function pos() {
     }
 }
 
-//Standardises positions onto the grid for checking(C stands for correct).
+// standardises positions onto the grid for checking.
 function C(method, offput) {
     return Math.floor((method + offput) / 50) * 50;
 }
 
 
-//Defines collisions for the player.
+// defines collisions for the player.
 function col() {
     let hey = "k";
-    //Translates Player positions onto the grid too, To match.
+    // translates Player positions onto the grid too, To match.
     let okX = Math.floor((oX) / 50) * 50;
     let okX2 = Math.floor((oX + 35) / 50) * 50;
     let okY = Math.floor((oY + 105) / 50) * 50;
     let okY2 = Math.floor((oY + 80) / 50) * 50;
     for (let i = 0; i <= pT.length; i++) {
         if (pT[i] != 0) {
-            //Floor and ceiling collisions.
+            // floor and ceiling collisions(vertical).
             if (pY[i] <= C(oY, 80) && pY[i] >= C(oY, 105) && pX[i] >= C(oX, 10) && pX[i] <= C(oX, 25)) {
                 hey = "nok";
                 floor = 1;
@@ -381,7 +382,7 @@ function col() {
                 oY ++;
             }
 
-            //Wall collisions.
+            // wall collisions(horizontal).
             if (pY[i] <= C(oY, 75) && pY[i] >= C(oY, 15) && floor != 10 && pX[i] >= C(oX, 35) && pX[i] <= C(oX, 35)) {
                     oXv = 0;
                     oX --;
